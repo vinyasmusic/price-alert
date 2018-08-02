@@ -1,0 +1,28 @@
+/* These styles are generated from project.scss. */
+
+.alert-debug {
+  color: black;
+  background-color: white;
+  border-color: #d6e9c6;
+}
+
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+.pt-3-half {
+      padding-top: 1.4rem;
+    }
+.my-bg{
+  background-color: #2e2e2e33;
+}
+.btn{
+  float: right !important;
+}
+.hide{
+  display: none;
+}
+
+
+

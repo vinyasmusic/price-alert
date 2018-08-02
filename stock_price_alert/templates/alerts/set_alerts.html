@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Set alerts for stocks for various exchanges{% endblock %}
+
+{% block content %}
+
+
+  <br>
+  <div class="card">
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Stock Alert</h3>
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fa fa-plus fa-2x"
+                                                                                           aria-hidden="true"></i></a></span>
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+          <tr>
+            <th class="text-center">Scrip Symbol</th>
+            <th class="text-center">Exchange Name</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Percentage</th>
+            <th class="text-center">Intraday Alert</th>
+            <th class="text-center">Remove</th>
+            <th class="hide d-none">uuid</th>
+          </tr>
+          {% for alert in alerts %}
+            <tr>
+            <td class="pt-3-half" contenteditable="true">{{ alert.scrip_symbol }}</td>
+            <td class="pt-3-half" contenteditable="true">{{ alert.exchange_name }}</td>
+            <td class="pt-3-half" contenteditable="true">{{ alert.price }}</td>
+            <td class="pt-3-half" contenteditable="true">{% if alert.percentage %}{{ alert.percentage }}{% endif %}</td>
+            <td class="pt-3-half" contenteditable="false">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="materialUnchecked" {% if alert.intraday_alert %}checked{% endif %}>
+                <label class="form-check-label" for="materialUnchecked"></label>
+              </div>
+            </td>
+
+            <td>
+              <span class="table-remove"><button type="button"
+                                                 class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+            </td>
+
+            <td class="hide d-none">{{ alert.uuid }}</td>
+
+          </tr>
+
+          {% endfor %}
+
+
+
+          <tr class="hide" id="new-row">
+            <td class="pt-3-half" contenteditable="true">GOOGL</td>
+            <td class="pt-3-half" contenteditable="true">NASDAQ</td>
+            <td class="pt-3-half" contenteditable="true">12345</td>
+            <td class="pt-3-half" contenteditable="true">5</td>
+            <td class="pt-3-half" contenteditable="false">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="materialUnchecked">
+                <label class="form-check-label" for="materialUnchecked"></label>
+              </div>
+            </td>
+
+            <td>
+              <span class="table-remove"><button type="button"
+                                                 class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <button id="export-btn" type="submit" class="btn btn-primary mr-3 btn-table">Save</button>
+    </div>
+
+  </div>
+  <!-- Editable table -->
+  <!-- Side Modal Top Right -->
+
+<!-- To change the direction of the modal animation change .right class -->
+<div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- Add class .modal-side and then add class .modal-top-right (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog modal-side modal-top-right" role="document">
+
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel"></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Side Modal Top Right -->
+  <script>
+  var user = '{{ request.user.uuid }}';
+  </script>
+
+{% endblock %}
+
+
+
