@@ -2,15 +2,19 @@ import environ
 import requests
 import datetime
 import time
+import logging
 
-from celery.utils.log import get_task_logger
 from django.core.mail import EmailMultiAlternatives
 from ..taskapp.celery import app
 from alpha_vantage.timeseries import TimeSeries
 from .models import Alert
-from .serializers import AlertSerializer
 
-logger = get_task_logger(__name__)
+logging.basicConfig(filename='tasks.log',
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.INFO)
+log = logging.getLogger(__name__)
 env = environ.Env()
 
 
@@ -22,18 +26,29 @@ def check_within_range(first_num, percent, second_num):
 
 
 @app.task(bind=True)
-def send_email_task(request):
+def send_email_task(request, to_email,
+                    scrip_symbol, price, percentage=None, today=datetime.datetime.now().date()):
     try:
         from_email = 'vinyasmusic@gmail.com'
-        msg = EmailMultiAlternatives(subject='TEST', body='pppp', from_email='Price Alert <'+from_email+'>',
-                                     to=['vinyasmusic@gmail.com'])
-        msg.attach_alternative('Some text', "text/html")
+        if percentage:
+
+            body = 'Your price of {} with a tolerance of {} % for {} has been hit on {}.'.format(price,
+                                                                                                 percentage,
+                                                                                                 scrip_symbol,
+                                                                                                 today)
+        else:
+            body = 'Your price of {} for {} has been hit on {}.'.format(price,
+                                                                        scrip_symbol,
+                                                                        today)
+        msg = EmailMultiAlternatives(subject='[IMP] Price Alert for {}'.format(scrip_symbol),
+                                     body=body,
+                                     from_email='Price Alert <'+from_email+'>',
+                                     to=[to_email])
+        msg.attach_alternative('', "text/html")
         result = msg.send()
-        print('RESULT ::::: {}'.format(result))
-        print('RESULT ::::: {}'.format(msg.send))
         return True
     except Exception as e:
-        print(e)
+        logging.exception(e)
         return False
 
 
@@ -45,9 +60,7 @@ def check_price(request):
     alerts = Alert.objects.filter(intraday_alert=False)
     for alert in alerts:
         data, meta_data = ts.get_daily(symbol=':'.join([alert.exchange_name, alert.scrip_symbol]))
-        print('WHOLE DATA ::: {}'.format(data))
         price_data = data.get('2018-08-01', None)
-        print('{} ::: {}'.format(alert.scrip_symbol, price_data))
         if price_data and alert.percentage:
             if check_within_range(price_data["4. close"], alert.percentage, alert.price):
                 send_email_task()
@@ -60,11 +73,13 @@ def check_price(request):
 @app.task(bind=True)
 def send_simple_message(request):
     mailgun_key = env('MAILGUN_KEY')
-
-    return requests.post(
-        "https://api.mailgun.net/v3/sandbox8c267a01d8974690ae2c644631fc31da.mailgun.org/messages",
+    response = requests.post(
+        "https://api.mailgun.net/v3/pricealert.trade/messages",
         auth=("api", mailgun_key),
-        data={"from": "Excited User <mailgun@mailgun.org>",
-              "to": ["vinyasmusic@gmail.com", "vinyasofficial@gmail.com", "vinyas@reckonsys.com"],
+        data={"from": "Excited User <alert@pricealert.trade>",
+              "to": ["vinyasmusic@gmail.com", "vinyasofficial@gmail.com", "vinyas@reckonsys.com",
+                     "susantamcacvrca@gmail.com"],
               "subject": "Hello",
               "text": "Testing some Mailgun awesomness!"})
+
+    return response.text
