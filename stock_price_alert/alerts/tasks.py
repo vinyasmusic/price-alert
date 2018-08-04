@@ -55,12 +55,15 @@ def send_email_task(request, to_email,
 @app.task(bind=True)
 def check_price(request):
     ts = TimeSeries(key=env('ALPHAVANTAGE_API_KEY'), output_format='json')
-    today = datetime.datetime.now().date().isoformat()
+    today = datetime.datetime.now().date()
     alerts = Alert.objects.filter(intraday_alert=False)
+    if today.isoweekday() <= 5:
+        today = today.isoformat()
+    else:
+        today = datetime.datetime.now().date().replace(day=datetime.datetime.now().date().day-2).isoformat()
     for alert in alerts:
         data, meta_data = ts.get_daily(symbol=':'.join([alert.exchange_name, alert.scrip_symbol]))
-        price_data = data.get(today,
-                              datetime.datetime.now().date().replace(day=datetime.datetime.now().date().day-2).isoformat())
+        price_data = data.get(today, None)
 
         if price_data and alert.percentage:
             if check_within_range(price_data["4. close"], alert.percentage, alert.price):
