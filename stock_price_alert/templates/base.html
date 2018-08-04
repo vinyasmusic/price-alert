@@ -59,10 +59,7 @@
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
               </li>
-              <li class="nav-item {% if request.get_full_path == 'account_logout' %} active {% endif %}">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-              </li>
+
             {% else %}
               <li class="nav-item {% if request.get_full_path == 'account_signup' %} active {% endif %}">
                 {# URL provided by django-allauth/account/urls.py #}
@@ -74,11 +71,17 @@
               </li>
 
             {% endif %}
-              <li class="nav-item ">
-                {% if request.user.is_authenticated %}
+          {% if request.user.is_authenticated %}
+              <li class="nav-item active">
+
                   <a id="alert-link" class="nav-link" href="{% url 'alerts:view_alerts' %}">{% trans "Alerts" %}</a>
-                {% endif %}
+
               </li>
+          <li class="nav-item {% if request.get_full_path == 'account_logout' %} active {% endif %}">
+                {# URL provided by django-allauth/account/urls.py #}
+                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+              </li>
+          {% endif %}
           </ul>
         </div>
       </nav>
