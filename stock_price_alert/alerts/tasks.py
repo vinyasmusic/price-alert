@@ -46,9 +46,11 @@ def send_email_task(request, to_email,
                                      to=[to_email])
         msg.attach_alternative('', "text/html")
         result = msg.send()
+        print("EMAIL SENT :::")
         return True
     except Exception as e:
         logging.exception(e)
+        print("ERROR ::: {}".format(e))
         return False
 
 
@@ -62,13 +64,13 @@ def check_price(request):
         price_data = data.get(today, None)
         if price_data and alert.percentage:
             if check_within_range(price_data["4. close"], alert.percentage, alert.price):
-
+                print("PRICE WITHIN RANGE :::::")
                 send_email_task(to_email=alert.user.email, scrip_symbol=alert.scrip_symbol,
                                 price=alert.price, percentage=alert.percentage,
                                 today=today)
 
         elif price_data and alert.price:
-
+            print("OUT OF RANGE :::::")
             if price_data["4. close"] == alert.price:
 
                 send_email_task(to_email=alert.user.email, scrip_symbol=alert.scrip_symbol,
