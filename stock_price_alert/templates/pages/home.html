@@ -1,1 +1,17 @@
 {% extends "base.html" %}
+
+{% block content %}
+  <p>Welcome to Stock Price Alert service.</p>
+  {% if request.user.is_authenticated %}
+    <p>Please click <a href="{% url 'alerts:view_alerts' %}">here</a> to view alerts.</p>
+  {% else %}
+    <p>Please <a href="{% url 'account_signup' %}">sign-up</a> or <a href="{% url 'account_login' %}">login</a> to
+      continue.</p>
+  {% endif %}
+  <br>
+
+  <p>In this app you can set alerts for various stocks from NSE, BSE and NASDAQ.</p>
+  <p>You can set an alert price and also a tolerance percentage for the same.</p>
+  <br>
+  <p>Please write to us at users@pricealert.trade with your feedback.</p>
+{% endblock content %}
