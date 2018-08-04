@@ -72,12 +72,12 @@
 
             {% endif %}
           {% if request.user.is_authenticated %}
-              <li class="nav-item active">
+              <li class="nav-item">
 
                   <a id="alert-link" class="nav-link" href="{% url 'alerts:view_alerts' %}">{% trans "Alerts" %}</a>
 
               </li>
-          <li class="nav-item {% if request.get_full_path == 'account_logout' %} active {% endif %}">
+              <li class="nav-item {% if request.get_full_path == 'account_logout' %} active {% endif %}">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
               </li>
