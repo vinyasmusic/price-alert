@@ -22,3 +22,4 @@ coreapi==2.3.3  # https://github.com/core-api/python-client
 alpha_vantage
 django-phonenumber-field
 django-celery-beat
+django-ses
