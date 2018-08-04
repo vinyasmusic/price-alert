@@ -44,7 +44,7 @@ def send_email_task(request, to_email,
                                      body=body,
                                      from_email='Price Alert <'+from_email+'>',
                                      to=[to_email])
-        msg.attach_alternative('', "text/html")
+        msg.attach_alternative(body, "text/html")
         result = msg.send()
         return True
     except Exception as e:
