@@ -269,5 +269,6 @@ SOCIALACCOUNT_ADAPTER = 'stock_price_alert.users.adapters.SocialAccountAdapter'
 # Your stuff...
 # ------------------------------------------------------------------------------
 PHONENUMBER_DEFAULT_REGION = 'IN'
+DEFAULT_FROM_EMAIL = "vinyasmusic@gmail.com"
 
 
