@@ -59,7 +59,8 @@ def check_price(request):
     alerts = Alert.objects.filter(intraday_alert=False)
     for alert in alerts:
         data, meta_data = ts.get_daily(symbol=':'.join([alert.exchange_name, alert.scrip_symbol]))
-        price_data = data.get(today, datetime.datetime.now().date().replace(day=datetime.datetime.now().date().day-2))
+        price_data = data.get(today,
+                              datetime.datetime.now().date().replace(day=datetime.datetime.now().date().day-2).isoformat())
 
         if price_data and alert.percentage:
             if check_within_range(price_data["4. close"], alert.percentage, alert.price):
