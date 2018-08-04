@@ -75,6 +75,7 @@
 
             {% endif %}
               <li>
+              {{ request.path }}
                 {% if request.user.is_authenticated %}
                   <a id="alert-link" class="nav-link" href="{% url 'alerts:view_alerts' %}">{% trans "Alerts" %}</a>
                 {% endif %}
