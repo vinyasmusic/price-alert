@@ -69,7 +69,8 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'rest_framework',
     'phonenumber_field',
-    'django_celery_beat'
+    'django_celery_beat',
+    'request'
 ]
 LOCAL_APPS = [
     'stock_price_alert.users.apps.UsersAppConfig',
@@ -136,6 +137,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'request.middleware.RequestMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
