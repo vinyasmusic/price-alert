@@ -17,6 +17,7 @@ Happy alerting !!
 To-Do
 
 - [ ] Add SMS support for non DND numbers
+- [ ] Get a ssl certificate
 - [ ] Write logic for intra-day check
 - [ ] Add data about the scrip symbol in email
 - [ ] Use IEX API for NASDAQ listed stocks
