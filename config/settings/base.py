@@ -70,7 +70,8 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'phonenumber_field',
     'django_celery_beat',
-    'request'
+    'request',
+    'django_pwned_passwords',
 ]
 LOCAL_APPS = [
     'stock_price_alert.users.apps.UsersAppConfig',
@@ -126,6 +127,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'django_pwned_passwords.password_validation.PWNEDPasswordValidator'
+    }
 ]
 
 # MIDDLEWARE
@@ -257,7 +261,7 @@ CELERYD_TASK_SOFT_TIME_LIMIT = 60
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
@@ -272,5 +276,7 @@ SOCIALACCOUNT_ADAPTER = 'stock_price_alert.users.adapters.SocialAccountAdapter'
 # ------------------------------------------------------------------------------
 PHONENUMBER_DEFAULT_REGION = 'IN'
 DEFAULT_FROM_EMAIL = "alert@pricealert.trade"
-
-
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+DEC_LOADER = "stock_price_alert.common.email_validator.custom_email_domain_loader"
+# PWNED_VALIDATOR_ERROR = "Please use a more complex password."

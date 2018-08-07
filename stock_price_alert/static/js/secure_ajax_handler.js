@@ -103,18 +103,14 @@ var helperMethods = {
 
     secureHTTPRequestHandler : function(url,method,data,success_callback,failure_callback,type){
 
-        var token = localStorage.getItem('jwt_token')
-        console.log("TOKEN: "+token)
+        var token = localStorage.getItem('jwt_token');
         if(token=='' || type=='expired'){
-            console.log("if")
             helperMethods.ajaxHandler(base_url+'/users/token/','GET',{},function(response){
                 localStorage.setItem('token',response.token)
                 helperMethods.ajaxHandlerJWT(url,method,data,response.token,success_callback,failure_callback)
             })
-            console.log("fi");
         }
         else{
-            console.log("else");
            helperMethods.ajaxHandlerJWT(url,method,data,token,success_callback,failure_callback)
         }
     },

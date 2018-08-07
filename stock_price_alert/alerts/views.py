@@ -32,7 +32,6 @@ def add_alerts(request):
     data = list(request.data)
     error_message = None
     for datum in data:
-        print(datum)
         if datum.get('uuid', None):
             alert_obj = Alert.objects.get(uuid=datum['uuid'])
             alert_serializer = AlertSerializer(alert_obj, data=datum)
@@ -49,3 +48,21 @@ def add_alerts(request):
         return Response({'message': error_message}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'message': 'Success'}, status=status.HTTP_200_OK)
+
+
+@login_required
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def remove_alert(request):
+    data = request.data
+    error_message = None
+    try:
+        alert = Alert.objects.get(uuid=data['uuid'])
+        alert.delete()
+    except Alert.DoesNotExist:
+        error_message = 'Alert object does not exist.'
+    if error_message:
+        return Response({'message': error_message}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'message': 'Success'}, status=status.HTTP_200_OK)
+

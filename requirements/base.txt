@@ -24,3 +24,5 @@ django-phonenumber-field
 django-celery-beat
 django-ses
 django-request
+django-disposable-email-checker
+django-pwned-passwords

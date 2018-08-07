@@ -3,26 +3,38 @@ var $TABLE = $('#table');
 var $BTN = $('#export-btn');
 var $EXPORT = $('#export');
 
-console.log(user);
 $('.table-add').click(function () {
     var $clone = $TABLE.find('#new-row').clone(true).removeClass('hide table-line');
     $TABLE.find('table').append($clone);
+    $(document).find('.add-button-show').removeClass("d-none hide");
 });
 
 $('.table-remove').click(function () {
     $(this).parents('tr').detach();
+    let url = '/alerts/remove_alert/';
+    let method = 'POST';
+    let data = {};
+    if(user!=='')
+    {
+            data['user_id'] = user;
+    }
+    data['uuid'] = $(this).data("id");
+    helperMethods.secureHTTPRequestHandler(url, method, data, function (response) {
+        $("#sideModalTR").on("shown.bs.modal", function () {  //Tell what to do on modal open
+             $(this).find('#myModalLabel').html('Voila!!');
+             $(this).find('.modal-body').html('Alert removed successfully.');
+        }).modal('show');
+
+    }, function (response, status, error) {
+        $("#sideModalTR").on("shown.bs.modal", function () {  //Tell what to do on modal open
+             $(this).find('#myModalLabel').html('Oops!!');
+             $(this).find('.modal-body').html(response.message);
+        }).modal('show');
+    })
+
+
 });
 
-$('.table-up').click(function () {
-    var $row = $(this).parents('tr');
-    if ($row.index() === 1) return; // Don't go above the header
-    $row.prev().before($row.get(0));
-});
-
-$('.table-down').click(function () {
-    var $row = $(this).parents('tr');
-    $row.next().after($row.get(0));
-});
 
 // A few jQuery helpers for exporting only
 jQuery.fn.pop = [].pop;

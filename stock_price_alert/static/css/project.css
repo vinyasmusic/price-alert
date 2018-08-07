@@ -17,8 +17,9 @@
 .my-bg{
   background-color: #2e2e2e33;
 }
-.btn{
+.save-btn{
   float: right !important;
+  margin-right: 78px !important;
 }
 .hide{
   display: none;

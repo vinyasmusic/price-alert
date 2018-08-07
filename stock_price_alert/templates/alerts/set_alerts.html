@@ -18,7 +18,7 @@
             <th class="text-center">Exchange Name</th>
             <th class="text-center">Price</th>
             <th class="text-center">Percentage</th>
-            <th class="text-center">Intraday Alert</th>
+            {% comment %}<th class="text-center">Intraday Alert</th>{% endcomment %}
             <th class="text-center">Remove</th>
             <th class="hide d-none">uuid</th>
           </tr>
@@ -28,16 +28,18 @@
             <td class="pt-3-half" contenteditable="true">{{ alert.exchange_name }}</td>
             <td class="pt-3-half" contenteditable="true">{{ alert.price }}</td>
             <td class="pt-3-half" contenteditable="true">{% if alert.percentage %}{{ alert.percentage }}{% endif %}</td>
-            <td class="pt-3-half" contenteditable="false">
+            {% comment %}<td class="pt-3-half" contenteditable="false">
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="materialUnchecked" {% if alert.intraday_alert %}checked{% endif %}>
                 <label class="form-check-label" for="materialUnchecked"></label>
               </div>
-            </td>
+            </td>{% endcomment %}
 
             <td>
-              <span class="table-remove"><button type="button"
-                                                 class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+              <span class="table-remove"
+                    data-id="{{ alert.uuid }}"><button type="button"
+                                                 class="btn btn-danger btn-rounded btn-sm my-0"
+                                                 >Remove</button></span>
             </td>
 
             <td class="hide d-none">{{ alert.uuid }}</td>
@@ -53,12 +55,12 @@
             <td class="pt-3-half" contenteditable="true">NASDAQ</td>
             <td class="pt-3-half" contenteditable="true">12345</td>
             <td class="pt-3-half" contenteditable="true">5</td>
-            <td class="pt-3-half" contenteditable="false">
+            {% comment %}<td class="pt-3-half" contenteditable="false">
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="materialUnchecked">
                 <label class="form-check-label" for="materialUnchecked"></label>
               </div>
-            </td>
+            </td>{% endcomment %}
 
             <td>
               <span class="table-remove"><button type="button"
@@ -67,8 +69,10 @@
           </tr>
         </table>
       </div>
-      <button id="export-btn" type="submit" class="btn btn-primary mr-3 btn-table">Save</button>
+      <button id="export-btn" type="submit" class="btn btn-primary mr-3 btn-table save-btn">Save</button>
     </div>
+    <br>
+    <p class="text-center text-warning add-button-show hide d-none">Data being added on click is for reference only.</p>
 
   </div>
   <!-- Editable table -->
