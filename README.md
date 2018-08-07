@@ -17,7 +17,8 @@ Happy alerting !!
 To-Do
 
 - [ ] Add SMS support for non DND numbers
-- [ ] Get a ssl certificate
+- [x] Get a ssl certificate
+- [x] Disposable email and Pwned password checks
 - [ ] Write logic for intra-day check
 - [ ] Add data about the scrip symbol in email
 - [ ] Use IEX API for NASDAQ listed stocks
