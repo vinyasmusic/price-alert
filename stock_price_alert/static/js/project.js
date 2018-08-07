@@ -11,26 +11,27 @@ $('.table-add').click(function () {
 
 $('.table-remove').click(function () {
     $(this).parents('tr').detach();
-    let url = '/alerts/remove_alert/';
-    let method = 'POST';
-    let data = {};
-    if(user!=='')
-    {
+    if ($(this).data("id")) {
+        let url = '/alerts/remove_alert/';
+        let method = 'POST';
+        let data = {};
+        if (user !== '') {
             data['user_id'] = user;
-    }
-    data['uuid'] = $(this).data("id");
-    helperMethods.secureHTTPRequestHandler(url, method, data, function (response) {
-        $("#sideModalTR").on("shown.bs.modal", function () {  //Tell what to do on modal open
-             $(this).find('#myModalLabel').html('Voila!!');
-             $(this).find('.modal-body').html('Alert removed successfully.');
-        }).modal('show');
+        }
+        data['uuid'] = $(this).data("id");
+        helperMethods.secureHTTPRequestHandler(url, method, data, function (response) {
+            $("#sideModalTR").on("shown.bs.modal", function () {  //Tell what to do on modal open
+                $(this).find('#myModalLabel').html('Voila!!');
+                $(this).find('.modal-body').html('Alert removed successfully.');
+            }).modal('show');
 
-    }, function (response, status, error) {
-        $("#sideModalTR").on("shown.bs.modal", function () {  //Tell what to do on modal open
-             $(this).find('#myModalLabel').html('Oops!!');
-             $(this).find('.modal-body').html(response.message);
-        }).modal('show');
-    })
+        }, function (response, status, error) {
+            $("#sideModalTR").on("shown.bs.modal", function () {  //Tell what to do on modal open
+                $(this).find('#myModalLabel').html('Oops!!');
+                $(this).find('.modal-body').html(response.message);
+            }).modal('show');
+        })
+    }
 
 
 });
@@ -58,19 +59,18 @@ $BTN.click(function () {
 
         // Use the headers from earlier to name our hash keys
         headers.forEach(function (header, i) {
-            if($td.eq(i).find('.form-check-input').length){
+            if ($td.eq(i).find('.form-check-input').length) {
                 h[header] = $td.eq(i).find('.form-check-input').prop('checked');
             }
-            else
-            {
+            else {
                 h[header] = $td.eq(i).text();
             }
 
         });
-        if(user!==''){
+        if (user !== '') {
             h['user_id'] = user;
         }
-        if(h['percentage']==='None'){
+        if (h['percentage'] === 'None') {
             delete h['percentage']
         }
         else {
@@ -89,14 +89,14 @@ $BTN.click(function () {
 
     helperMethods.secureHTTPRequestHandler(url, method, data, function (response) {
         $("#sideModalTR").on("shown.bs.modal", function () {  //Tell what to do on modal open
-             $(this).find('#myModalLabel').html('Voila!!');
-             $(this).find('.modal-body').html('Alert added successfully.');
+            $(this).find('#myModalLabel').html('Voila!!');
+            $(this).find('.modal-body').html('Alert added successfully.');
         }).modal('show');
 
     }, function (response, status, error) {
         $("#sideModalTR").on("shown.bs.modal", function () {  //Tell what to do on modal open
-             $(this).find('#myModalLabel').html('Oops!!');
-             $(this).find('.modal-body').html(response.message);
+            $(this).find('#myModalLabel').html('Oops!!');
+            $(this).find('.modal-body').html(response.message);
         }).modal('show');
     })
 
