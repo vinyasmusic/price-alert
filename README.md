@@ -24,6 +24,7 @@ To-Do
 - [ ] Use IEX API for NASDAQ listed stocks
 - [ ] Add support for Crypto alert
 - [ ] Improve alerts add UI
+- [ ] Add tests
 - [ ] Try VueJS
 - [ ] Use CI-CD
 
