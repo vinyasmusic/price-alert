@@ -123,7 +123,7 @@ def check_price(request):
         if len(data) > 0:
             # Find out why the data.get('1. open', data['open']) is giving error
             try:
-                context['open'] = data.get('1. open', 'NA')
+                context['open'] = data['1. open']
                 context['close'] = data.get('4. close', 'NA')
                 context['high'] = data.get('2. high', 'NA')
                 context['low'] = data.get('3. low', 'NA')
@@ -133,11 +133,11 @@ def check_price(request):
                 context['week_low'] = data.get('low52', 'NA')
                 context['week_high'] = data.get('high52', 'NA')
             except KeyError:
-                context['open'] = data.get('1. open', data['open'])
-                context['close'] = data.get('4. close', data['closePrice'])
-                context['high'] = data.get('2. high', data['dayHigh'])
-                context['low'] = data.get('3. low', data['dayLow'])
-                context['traded_volume'] = data.get('5. volume', data['totalTradedVolume'])
+                context['open'] = data.get('open', '')
+                context['close'] = data.get('closePrice', 'NA')
+                context['high'] = data.get('dayHigh', 'NA')
+                context['low'] = data.get('dayLow', 'NA')
+                context['traded_volume'] = data.get('totalTradedVolume', 'NA')
                 context['total_buy'] = data.get('totalBuyQuantity', 'NA')
                 context['total_sell'] = data.get('totalSellQuantity', 'NA')
                 context['week_low'] = data.get('low52', 'NA')
