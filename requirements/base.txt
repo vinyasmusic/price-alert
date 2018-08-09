@@ -26,3 +26,4 @@ django-ses
 django-request
 django-disposable-email-checker
 django-pwned-passwords
+nsetools

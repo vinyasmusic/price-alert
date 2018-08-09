@@ -99,7 +99,7 @@
       {% block content %}
         <br>
         <p>Welcome to Stock Price Alert service.</p>
-        <p>Here you can set alerts for NSE or BSE stocks according to various parameters.</p>
+        <p>Here you can set alerts for NSE or NASDAQ stocks according to various parameters.</p>
         {% if request.user.is_authenticated %}
           <p>Please click <a href="{% url 'alerts:view_alerts' %}">here</a> to view alerts.</p>
         {% else %}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Price Alert</title>
+</head>
+<body>
+<div>
+  <span style="text-align: center">{{ scrip_symbol }}</span>
+  {% if percentage %}
+      <span style="text-align: center">Your price of {{ price }} with a tolerance of {{ percentage }}%  has been hit on {{ date }}.</span>
+  {% else %}
+    <span style="text-align: center">Your price of {{ price }} has been hit on {{ date }}.</span>
+  {% endif %}
+  <span>Some more information for the day is given below.</span>
+  </div>
+
+
+<table align="center">
+
+  <tr>
+    <th>Open Price</th>
+    <th>Close Price</th>
+    <th>High</th>
+    <th>Low</th>
+    <th>Traded Volume</th>
+    <th>Total Buy</th>
+    <th>Total Sell</th>
+    <th>52 Week Low</th>
+    <th>52 Week High</th>
+  </tr>
+  <tr>
+    <td>{{ open }}</td>
+    <td>{{ close }}</td>
+    <td>{{ high }}</td>
+    <td>{{ low }}</td>
+    <td>{{ traded_volume }}</td>
+    <td>{{ total_buy }}</td>
+    <td>{{ total_sell }}</td>
+    <td>{{ week_low }}</td>
+    <td>{{ week_high }}</td>
+  </tr>
+</table>
+
+From : {{ site }}
+</body>
+</html>

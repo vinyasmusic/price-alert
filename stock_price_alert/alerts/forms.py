@@ -31,27 +31,11 @@ class AlertForm(Form):
     scrip_symbol = CharField(max_length=50,
                              widget=TextInput(attrs={'placeholder': 'Scrip symbol like GOOGL'}))
     exchange_name = CharField(max_length=10,
-                              widget=TextInput(attrs={'placeholder': 'Exchange names like NSE or BSE'}))
+                              widget=TextInput(attrs={'placeholder': 'Exchange names like NSE or NASDAQ'}))
     price = FloatField(widget=TextInput(attrs={'placeholder': 'Price of the scrip at which you want alert'}))
     percentage = FloatField(required=False,
                             widget=TextInput(attrs={'placeholder': 'Notify on what % drop after alert price'}))
     intraday_alert = BooleanField(required=False)
 
 
-class ExampleForm(Form):
-    favorite_color = CharField(max_length=50)
-    favorite_food = CharField(max_length=50)
 
-
-class ExampleFormSetHelper(FormHelper):
-    def __init__(self, *args, **kwargs):
-        super(ExampleFormSetHelper, self).__init__(*args, **kwargs)
-        self.form_method = 'post'
-        self.layout = Accordion(
-            AccordionGroup('First Group', Field('favorite_color'), Field('favorite_food'), active=False
-                           ),
-            AccordionGroup('Second Group', Field('favorite_color'), Field('favorite_food'), active=True
-
-                           )
-        )
-        self.render_required_fields = True
