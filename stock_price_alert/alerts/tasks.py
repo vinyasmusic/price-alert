@@ -121,8 +121,8 @@ def check_price(request):
                    'date': today
                    }
         if len(data) > 0:
+            # Find out why the data.get('1. open', data['open']) is giving error
             try:
-
                 context['open'] = data.get('1. open', 'NA')
                 context['close'] = data.get('4. close', 'NA')
                 context['high'] = data.get('2. high', 'NA')
