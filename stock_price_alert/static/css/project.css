@@ -24,6 +24,17 @@
 .hide{
   display: none;
 }
+table.alert-table td {
+
+  width: 100px;
+  margin: 4px;
+  text-align: center;
+}
+table.alert-table th {
+    width: 100px;
+    margin:4px
+}
+
 
 
 
