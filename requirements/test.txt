@@ -1,3 +1,4 @@
 -r ./local.txt
 
 pytest-cov
+codecov
