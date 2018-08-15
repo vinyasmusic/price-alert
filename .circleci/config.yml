@@ -1,11 +1,11 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/app
+    working_directory: ~/stock_price_alert
     docker:
       - image: circleci/python:3.6.1
         environment:
-          DATABASE_URL: postgres:///stock_price_alert
+          DATABASE_URL: postgres://postgres@localhost:5432/stock_price_alert
       - image: circleci/postgres:10
         environment:
           POSTGRES_USER: postgres
