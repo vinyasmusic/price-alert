@@ -3,11 +3,12 @@ var $TABLE = $('#table');
 var $BTN = $('#export-btn');
 var $EXPORT = $('#export');
 
-$('.table-add').click(function () {
-    var $clone = $TABLE.find('#new-row').clone(true).removeClass('hide table-line');
+/*$('.table-add').click(function () {*/
+    /*var $clone = $TABLE.find('#new-row').clone(true).removeClass('hide table-line');
     $TABLE.find('table').append($clone);
-    $(document).find('.add-button-show').removeClass("d-none hide");
-});
+    $(document).find('.add-button-show').removeClass("d-none hide");*/
+
+
 
 $('.table-remove').click(function () {
     $(this).parents('tr').detach();
@@ -100,5 +101,9 @@ $BTN.click(function () {
         }).modal('show');
     })
 
+});
 
+$('#subscribe-form').on('submit', function (event) {
+    console.log($(this).serialize());
+    event.preventDefault();
 });
