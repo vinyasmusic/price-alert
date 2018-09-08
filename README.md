@@ -20,7 +20,7 @@ To-Do
 - [x] Get a ssl certificate
 - [x] Disposable email and Pwned password checks
 - [ ] Write logic for intra-day check
-- [ ] Add data about the scrip symbol in email
+- [x] Add data about the scrip symbol in email
 - [ ] Use IEX API for NASDAQ listed stocks
 - [ ] Add support for Crypto alert
 - [ ] Improve alerts add UI
